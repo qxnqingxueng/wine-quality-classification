@@ -1,5 +1,3 @@
-# wine-quality-classification
-
 # 🍷 Wine Quality Classification — CPC152
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1599SYZq-zMO2-u14mMU3Ey7r2J-M-1Dp?usp=sharing)
