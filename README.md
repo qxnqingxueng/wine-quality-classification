@@ -1,58 +1,119 @@
 # wine-quality-classification
 
-📝 Project Overview
-This repository contains the machine learning implementation for a binary classification task focused on predicting the quality of wine based on its physicochemical properties.<br> The main goal is to categorize wine samples as either "Good Quality" or "Bad Quality". The methodology includes extensive preprocessing, feature importance assessment, and comparison across multiple algorithms, including iterative testing of various feature subsets.<br>
+# 🍷 Wine Quality Classification — CPC152
 
---------------------------------------------------------------------------------
-📊 Dataset and Target Variable
-The project uses the winequality.csv dataset.<br>
-Features (Physicochemical Properties)
-The model inputs rely on eleven features:
-• Fixed acidity<br>
-• Volatile acidity<br>
-• Citric acid<br>
-• Residual sugar<br>
-• Chlorides<br>
-• Free sulfur dioxide<br>
-• Total sulfur dioxide<br>
-• Density<br>
-• pH<br>
-• Sulphates<br>
-• Alcohol<br>
-Target Transformation
-The original quantitative 'quality' score was converted into a binary target variable, 'quality_binary':<br>
-• Good Quality (1): Original quality score ≥7<br>
-• Bad Quality (0): Original quality score <7<br>
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1599SYZq-zMO2-u14mMU3Ey7r2J-M-1Dp?usp=sharing)
 
---------------------------------------------------------------------------------
-🛠️ Data Pipeline and Methodology
-1. Data Preprocessing
-• Null Check: The dataset was verified to contain zero null values.<br>
-• Duplicate Handling: Duplicate rows present in the initial dataset were removed.<br>
-• Data Split: The data was partitioned into a training set (70%) and a testing set (30%).<br>
-• Feature Scaling: Standard scaling using StandardScaler was applied to the features prior to training distance-based models like KNN and SVM.<br>
-2. Feature Selection
-Feature importance was analyzed using an ExtraTreesClassifier model, which ranked the influence of the 11 attributes on predicting quality. The importance visualization guided iterative model testing using various subsets of features (e.g., 2, 3, 4, up to 9 features) to find the combination yielding the highest performance metrics.<br>
-3. Model Implementation and Tuning
-Three primary model types were deployed and evaluated:<br>
-K-Nearest Neighbors (KNN)
-• The optimal number of neighbors (k) was searched for (e.g., k=17 was determined as optimal based on cross-validation accuracy plot).
-• Trained and evaluated iteratively across various feature subsets.<br>
-Decision Tree
-• The classifier was instantiated using the 'gini' criterion.
-• Tested across varying feature subsets.<br>
-Support Vector Machines (SVM)
-The SVM section involved the most comprehensive evaluation, testing three kernel types and performing hyperparameter tuning:
-1. Linear Kernel: Tested different C values (0.01, 0.1, 1.0).
-2. Polynomial Kernel: Evaluated different polynomial degrees (1 through 5).
-3. Radial Basis Function (RBF) Kernel: Optimized using a search over multiple gamma and C values.<br>
-The RBF kernel generally achieved the highest accuracy compared to the Linear and Polynomial kernels and was therefore selected as the best performing SVM approach.<br>
+This repository contains a **machine learning project** focusing on **wine quality classification**.  
+The objective is to develop and evaluate several classification models (**KNN, Naive Bayes, Decision Tree, and SVM**) to predict whether a wine is considered **"Good Quality"** or **"Bad Quality"** based on its physicochemical properties.
 
---------------------------------------------------------------------------------
-📈 Evaluation Metrics
-All models were measured using a standard suite of classification metrics:<br>
-• Accuracy Score<br>
-• Precision<br>
-• Recall<br>
-• F1 Score<br>
-• Confusion Matrix<br>
+---
+
+## 💾 Dataset
+
+The project uses the **`winequality.csv`** dataset.
+
+### Data Attributes (Features)
+
+The input features describe the chemical properties of wine, including:
+
+- Fixed acidity  
+- Volatile acidity  
+- Citric acid  
+- Residual sugar  
+- Chlorides  
+- Free sulfur dioxide  
+- Total sulfur dioxide  
+- Density  
+- pH  
+- Sulphates  
+- Alcohol  
+
+### Target Variable
+
+The original `quality` score was transformed to create a **binary classification label** `quality_binary`:
+
+- **Good Quality (1):** Original quality score ≥ 7  
+- **Bad Quality (0):** Original quality score < 7  
+
+---
+
+## ✨ Methodology and Pipeline
+
+The analysis pipeline follows a structured approach: data cleaning, feature engineering, model selection, and evaluation.
+
+### 1. Data Cleaning and Preprocessing
+- **Null Value Check:** The dataset contained no missing values.  
+- **Duplicate Handling:** Duplicate rows were identified and removed.  
+- **Data Splitting:** Dataset divided into training (70%) and testing (30%).  
+- **Feature Scaling:** `StandardScaler` applied for certain models (notably SVM).
+
+### 2. Feature Selection
+Feature importance was assessed using an **ExtraTreesClassifier** model to determine the most significant features.
+
+- Models were evaluated using feature subsets ranging from **2 to 9 features** to study their impact on performance metrics.
+
+### 3. Model Implementation and Tuning
+
+| Model | Description | Key Tuning / Evaluation |
+|--------|--------------|--------------------------|
+| **K-Nearest Neighbors (KNN)** | Evaluated with feature subsets from 2F–9F. | Optimal `k` value determined via cross-validation (e.g. `k=17`). |
+| **Naive Bayes (GaussianNB)** | Simple baseline model for comparison. | Standard training and evaluation metrics. |
+| **Decision Tree** | Trained using `gini` criterion. | Tested across multiple feature subsets (2F–9F). |
+| **Support Vector Machines (SVM)** | Extensively tested with different kernels and hyperparameters. | Linear (C=0.01–1.0), Polynomial (degrees 1–5), and RBF (grid search for Gamma and C). |
+
+🔹 The **RBF Kernel SVM** achieved the **highest accuracy** and was selected as the final model.
+
+---
+
+## 📊 Evaluation and Results
+
+All models were evaluated using key classification metrics:
+
+- **Accuracy Score**  
+- **Precision**  
+- **Recall**  
+- **F1 Score**  
+- **Confusion Matrix**
+
+Performance was analyzed across increasing feature subsets to understand how feature count influences model performance.
+
+---
+
+## 📈 Key Findings
+
+- Removing duplicates improved data consistency.  
+- Feature scaling notably boosted SVM performance.  
+- RBF SVM consistently outperformed other models in both accuracy and F1-score.  
+- Feature importance analysis helped optimize model complexity without sacrificing accuracy.
+
+---
+
+## 🧠 Technologies Used
+
+- Python  
+- NumPy, Pandas, Matplotlib, Seaborn  
+- Scikit-learn  
+- Google Colab  
+
+---
+
+## 🧾 Citation / Reference
+Dataset: [Wine Quality Data Set — UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Wine+Quality)
+
+---
+
+## 🚀 Quick Access
+You can open and explore the project notebook directly in Google Colab:
+
+👉 [**Open in Google Colab**](https://colab.research.google.com/drive/1599SYZq-zMO2-u14mMU3Ey7r2J-M-1Dp?usp=sharing)
+
+---
+
+## 🧩 Author
+**Ng Xue Qing**  
+CPC152 — Machine Learning Project  
+Universiti Sains Malaysia (USM)
+
+---
+
